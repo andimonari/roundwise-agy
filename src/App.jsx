@@ -17,10 +17,14 @@ import QuestionReviewView from './views/QuestionReviewView';
 import UserDashboardView from './views/UserDashboardView';
 import AdminDashboardView from './views/AdminDashboardView';
 import DesignSystemView from './views/DesignSystemView';
+import DesignComparisonView from './views/DesignComparisonView';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('landing');
   
+  // Design System Mode: 'industry' (Handoff Blueprint) or 'healthcare' (Classic Slate/Teal)
+  const [designMode, setDesignMode] = useState('industry');
+
   const [accessibilitySettings, setAccessibilitySettings] = useState({
     highContrast: false,
     textSize: 'normal', // 'normal', 'large', 'xl'
@@ -45,75 +49,94 @@ export default function App() {
     accessibilitySettings.highContrast ? 'accessibility-high-contrast' : '',
     accessibilitySettings.textSize === 'large' ? 'accessibility-text-lg' : '',
     accessibilitySettings.textSize === 'xl' ? 'accessibility-text-xl' : '',
-    accessibilitySettings.reducedMotion ? 'accessibility-reduced-motion' : ''
+    accessibilitySettings.reducedMotion ? 'accessibility-reduced-motion' : '',
+    designMode === 'industry' ? 'theme-industry' : ''
   ].filter(Boolean).join(' ');
 
   return (
-    <div className={`min-h-screen flex flex-col ${a11yClass}`}>
-      {/* Header with Navigation and Screen Switcher */}
+    <div className={`min-h-screen flex flex-col transition-colors duration-200 ${a11yClass}`}>
+      {/* Header with Navigation, Screen Switcher & Design Mode Toggle */}
       <Header
         currentScreen={currentScreen}
         setCurrentScreen={setCurrentScreen}
         accessibilitySettings={accessibilitySettings}
         setAccessibilitySettings={setAccessibilitySettings}
+        designMode={designMode}
+        setDesignMode={setDesignMode}
       />
 
       {/* Main View Router */}
       <main className="flex-1 flex flex-col">
         {currentScreen === 'landing' && (
-          <LandingView setCurrentScreen={setCurrentScreen} isMobileMode={false} />
+          <LandingView 
+            setCurrentScreen={setCurrentScreen} 
+            isMobileMode={false} 
+            designMode={designMode} 
+          />
         )}
         {currentScreen === 'landing-mobile' && (
-          <LandingView setCurrentScreen={setCurrentScreen} isMobileMode={true} />
+          <LandingView 
+            setCurrentScreen={setCurrentScreen} 
+            isMobileMode={true} 
+            designMode={designMode} 
+          />
         )}
         {currentScreen === 'pricing' && (
-          <PricingView setCurrentScreen={setCurrentScreen} />
+          <PricingView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'checkout' && (
-          <CheckoutView setCurrentScreen={setCurrentScreen} />
+          <CheckoutView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'setup' && (
           <SpecialtySetupView 
             setCurrentScreen={setCurrentScreen} 
             setupData={setupData} 
             setSetupData={setSetupData} 
+            designMode={designMode} 
           />
         )}
         {currentScreen === 'cv-upload' && (
-          <CvUploadView setCurrentScreen={setCurrentScreen} />
+          <CvUploadView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'cv-review' && (
-          <CvFactReviewView setCurrentScreen={setCurrentScreen} />
+          <CvFactReviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'device-check' && (
-          <DeviceCheckView setCurrentScreen={setCurrentScreen} />
+          <DeviceCheckView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'waiting-room' && (
-          <WaitingRoomView setCurrentScreen={setCurrentScreen} />
+          <WaitingRoomView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'live-interview' && (
-          <LiveInterviewView setCurrentScreen={setCurrentScreen} />
+          <LiveInterviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'results' && (
-          <ResultsOverviewView setCurrentScreen={setCurrentScreen} />
+          <ResultsOverviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'question-review' && (
-          <QuestionReviewView setCurrentScreen={setCurrentScreen} />
+          <QuestionReviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'user-dashboard' && (
-          <UserDashboardView setCurrentScreen={setCurrentScreen} />
+          <UserDashboardView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'admin' && (
-          <AdminDashboardView setCurrentScreen={setCurrentScreen} />
+          <AdminDashboardView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'design-system' && (
-          <DesignSystemView />
+          <DesignSystemView designMode={designMode} />
+        )}
+        {currentScreen === 'design-comparison' && (
+          <DesignComparisonView 
+            designMode={designMode} 
+            setDesignMode={setDesignMode} 
+            setCurrentScreen={setCurrentScreen} 
+          />
         )}
       </main>
 
       {/* Persistent Compliance Footer (suppressed only during live voice exam for immersion) */}
       {currentScreen !== 'live-interview' && (
-        <Footer setCurrentScreen={setCurrentScreen} />
+        <Footer setCurrentScreen={setCurrentScreen} designMode={designMode} />
       )}
     </div>
   );

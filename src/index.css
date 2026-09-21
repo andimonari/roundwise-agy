@@ -8,19 +8,121 @@
   }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM B: INDUSTRY TECHNICAL BLUEPRINT (HANDOFF ADAPTATION)
+   Source: /home/anm/claude_home/panelwise/docs/handoff/design/
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --color-industry-bg: #f2f2f3;
+  --color-industry-surface: #e9e9ea;
+  --color-industry-text: #1d1f20;
+  --color-industry-accent: #5980a6;
+  --color-industry-accent-100: #eef6ff;
+  --color-industry-accent-600: #597ea3;
+  --color-industry-accent-700: #416180;
+  --color-industry-accent-800: #2c455d;
+  --color-industry-accent-900: #1d2d3d;
+  --color-industry-divider: color-mix(in srgb, #1d1f20 16%, transparent);
+
+  --font-industry-heading: 'Barlow Condensed', system-ui, -apple-system, sans-serif;
+  --font-industry-body: 'Barlow', system-ui, -apple-system, sans-serif;
+}
+
+/* Blueprint wireframe registration corners */
+.blueprint-corner {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  color: color-mix(in srgb, var(--color-industry-text) 55%, transparent);
+  pointer-events: none;
+  z-index: 10;
+}
+.blueprint-corner::before,
+.blueprint-corner::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.blueprint-corner::before { left: 5px; top: 0; width: 1px; height: 100%; }
+.blueprint-corner::after  { top: 5px; left: 0; width: 100%; height: 1px; }
+.blueprint-corner.tl { top: -6px; left: -6px; }
+.blueprint-corner.tr { top: -6px; right: -6px; }
+.blueprint-corner.bl { bottom: -6px; left: -6px; }
+.blueprint-corner.br { bottom: -6px; right: -6px; }
+
+/* Industry Theme Active Overrides */
+.theme-industry {
+  background-color: var(--color-industry-bg) !important;
+  color: var(--color-industry-text) !important;
+  font-family: var(--font-industry-body) !important;
+}
+
+.theme-industry h1, 
+.theme-industry h2, 
+.theme-industry h3, 
+.theme-industry h4,
+.theme-industry h5,
+.theme-industry .font-heading {
+  font-family: var(--font-industry-heading) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+}
+
+.theme-industry .rounded-2xl,
+.theme-industry .rounded-xl,
+.theme-industry .rounded-lg,
+.theme-industry .rounded-md,
+.theme-industry .rounded-3xl,
+.theme-industry .rounded-full:not(.avatar-circle):not(.status-dot) {
+  border-radius: 0 !important;
+}
+
+.theme-industry .blueprint-obj {
+  position: relative;
+  border: 1px solid var(--color-industry-divider) !important;
+  border-radius: 0 !important;
+}
+
+.theme-industry .btn-action-primary {
+  background-color: var(--color-industry-accent) !important;
+  color: #f2f2f3 !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--color-industry-accent) !important;
+  font-family: var(--font-industry-heading) !important;
+  font-size: 15px !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+}
+.theme-industry .btn-action-primary:hover {
+  background-color: var(--color-industry-accent-600) !important;
+}
+
+.theme-industry .btn-action-secondary {
+  background-color: transparent !important;
+  color: var(--color-industry-text) !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--color-industry-divider) !important;
+  font-family: var(--font-industry-heading) !important;
+  font-size: 15px !important;
+}
+
+.theme-industry .plate-dark {
+  background-color: var(--color-industry-accent-900) !important;
+  color: #f2f2f3 !important;
+  border: 1px solid rgba(242, 242, 243, 0.22) !important;
+}
+
 /* Accessibility Modes */
 .accessibility-high-contrast {
   filter: contrast(125%);
 }
-
 .accessibility-text-lg {
   font-size: 110%;
 }
-
 .accessibility-text-xl {
   font-size: 120%;
 }
-
 .accessibility-reduced-motion * {
   animation-duration: 0.001ms !important;
   animation-iteration-count: 1 !important;
@@ -29,26 +131,13 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #e9e9ea;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 0.4; }
-  100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: #b7b7ba;
+  border-radius: 0;
 }
