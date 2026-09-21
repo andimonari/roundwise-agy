@@ -16,9 +16,10 @@ import {
 } from 'lucide-react';
 import { MOCK_SCORING_SUMMARY, MOCK_INTERVIEW_QUESTIONS } from '../data/mockData';
 
-export default function ResultsOverviewView({ setCurrentScreen }) {
+export default function ResultsOverviewView({ setCurrentScreen, candidateSessionResponses = {} }) {
   const summary = MOCK_SCORING_SUMMARY;
   const [downloadNotice, setDownloadNotice] = useState(false);
+  const completedStationsCount = Object.keys(candidateSessionResponses).length;
 
   const handleDownload = () => {
     setDownloadNotice(true);

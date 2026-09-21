@@ -32,6 +32,8 @@ export default function App() {
     captions: true
   });
 
+  const [candidateSessionResponses, setCandidateSessionResponses] = useState({});
+
   const [setupData, setSetupData] = useState({
     specialtyId: 'imt',
     specialtyName: 'Internal Medicine Training (IMT)',
@@ -108,13 +110,26 @@ export default function App() {
           <WaitingRoomView setCurrentScreen={setCurrentScreen} designMode={designMode} />
         )}
         {currentScreen === 'live-interview' && (
-          <LiveInterviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
+          <LiveInterviewView 
+            setCurrentScreen={setCurrentScreen} 
+            designMode={designMode} 
+            candidateSessionResponses={candidateSessionResponses}
+            setCandidateSessionResponses={setCandidateSessionResponses}
+          />
         )}
         {currentScreen === 'results' && (
-          <ResultsOverviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
+          <ResultsOverviewView 
+            setCurrentScreen={setCurrentScreen} 
+            designMode={designMode} 
+            candidateSessionResponses={candidateSessionResponses}
+          />
         )}
         {currentScreen === 'question-review' && (
-          <QuestionReviewView setCurrentScreen={setCurrentScreen} designMode={designMode} />
+          <QuestionReviewView 
+            setCurrentScreen={setCurrentScreen} 
+            designMode={designMode} 
+            candidateSessionResponses={candidateSessionResponses}
+          />
         )}
         {currentScreen === 'user-dashboard' && (
           <UserDashboardView setCurrentScreen={setCurrentScreen} designMode={designMode} />

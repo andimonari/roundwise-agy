@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-export default function AudioWave({ isActive = false, color = 'teal', height = 36, barCount = 28 }) {
+export default function AudioWave({ 
+  isActive = false, 
+  color = 'teal', 
+  height = 36, 
+  barCount = 28,
+  volume = null
+}) {
   const [bars, setBars] = useState(() => Array(barCount).fill(15));
 
   useEffect(() => {
     if (!isActive) {
-      setBars(Array(barCount).fill(12));
+      setBars(Array(barCount).fill(10));
       return;
     }
 
@@ -13,14 +19,22 @@ export default function AudioWave({ isActive = false, color = 'teal', height = 3
       setBars(prev => prev.map((_, i) => {
         // Natural speech wave rhythm
         const wave = Math.sin(Date.now() / 180 + i * 0.45);
-        const randomSpike = Math.random() * 45;
-        const val = Math.max(12, Math.min(95, Math.abs(wave) * 65 + randomSpike));
+        let baseLevel = 25;
+        let spikeRange = 40;
+
+        if (volume !== null && volume !== undefined) {
+          baseLevel = Math.max(8, Math.min(85, volume * 0.8));
+          spikeRange = Math.max(10, volume * 0.5);
+        }
+
+        const randomSpike = Math.random() * spikeRange;
+        const val = Math.max(8, Math.min(100, Math.abs(wave) * baseLevel + randomSpike));
         return Math.round(val);
       }));
-    }, 90);
+    }, 80);
 
     return () => clearInterval(interval);
-  }, [isActive, barCount]);
+  }, [isActive, barCount, volume]);
 
   const colorClasses = {
     teal: 'bg-teal-500',

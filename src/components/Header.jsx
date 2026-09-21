@@ -16,7 +16,8 @@ import {
   Laptop,
   Smartphone,
   Layers,
-  Palette
+  Palette,
+  Mic
 } from 'lucide-react';
 
 export const ALL_SCREENS = [
@@ -338,6 +339,19 @@ export default function Header({
               <Palette className="w-3.5 h-3.5 text-amber-600" />
               <span>Design Diff</span>
             </button>
+
+            <button 
+              onClick={() => setCurrentScreen('live-interview')}
+              className={`px-3 py-1 text-xs font-bold transition flex items-center gap-1.5 border ${
+                isIndustry 
+                  ? 'border-[#5980a6] text-[#416180] bg-[#5980a6]/10 hover:bg-[#5980a6]/20' 
+                  : 'rounded-lg bg-teal-50 border-teal-200 text-teal-800 hover:bg-teal-100'
+              }`}
+              style={isIndustry ? { fontFamily: 'var(--font-industry-heading)' } : {}}
+            >
+              <Mic className="w-3.5 h-3.5 text-teal-600" />
+              <span>Live Mock Station</span>
+            </button>
           </nav>
 
           {/* Action CTAs & Profile */}
@@ -362,7 +376,7 @@ export default function Header({
             {isIndustry ? (
               /* Industry Blueprint Primary Button */
               <button
-                onClick={() => setCurrentScreen('setup')}
+                onClick={() => setCurrentScreen('live-interview')}
                 className="relative px-5 py-2 text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2"
                 style={{
                   background: '#5980a6',
@@ -372,21 +386,17 @@ export default function Header({
               >
                 <i className="blueprint-corner tl"></i><i className="blueprint-corner tr"></i>
                 <i className="blueprint-corner bl"></i><i className="blueprint-corner br"></i>
-                <span>Start practising</span>
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <Mic className="w-3.5 h-3.5 text-white" />
+                <span>Start Practising</span>
               </button>
             ) : (
               /* Healthcare Classic Primary Button */
               <button
-                onClick={() => setCurrentScreen('setup')}
+                onClick={() => setCurrentScreen('live-interview')}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow transition transform-gpu active:scale-95"
               >
+                <Mic className="w-3.5 h-3.5" />
                 <span>Start Simulation</span>
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
               </button>
             )}
 

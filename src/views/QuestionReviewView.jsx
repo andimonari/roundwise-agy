@@ -16,10 +16,11 @@ import {
 } from 'lucide-react';
 import { MOCK_INTERVIEW_QUESTIONS } from '../data/mockData';
 
-export default function QuestionReviewView({ setCurrentScreen }) {
+export default function QuestionReviewView({ setCurrentScreen, candidateSessionResponses = {} }) {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const q = MOCK_INTERVIEW_QUESTIONS[selectedIdx];
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const candidateRecord = candidateSessionResponses[selectedIdx];
 
   return (
     <div className="w-full min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
@@ -107,8 +108,22 @@ export default function QuestionReviewView({ setCurrentScreen }) {
             </button>
           </div>
 
-          <div className="bg-slate-900 text-slate-200 p-4 sm:p-5 rounded-xl text-xs sm:text-sm leading-relaxed font-mono">
-            {q.sampleCandidateAnswer}
+          <div className="bg-slate-900 text-slate-200 p-4 sm:p-5 rounded-xl text-xs sm:text-sm leading-relaxed font-mono space-y-3">
+            <div>
+              <span className="text-[10px] uppercase font-bold text-teal-400 block mb-1">
+                {candidateRecord?.candidateSpokenAnswer ? "Recorded Candidate Transcript (Live Spoken Session):" : "Sample Candidate Response (Benchmark Demonstration):"}
+              </span>
+              <p>{candidateRecord?.candidateSpokenAnswer || q.sampleCandidateAnswer}</p>
+            </div>
+
+            {candidateRecord?.candidateFollowUpAnswer && (
+              <div className="pt-3 border-t border-slate-800">
+                <span className="text-[10px] uppercase font-bold text-amber-400 block mb-1">
+                  Candidate Follow-up Response:
+                </span>
+                <p className="text-slate-300">{candidateRecord.candidateFollowUpAnswer}</p>
+              </div>
+            )}
           </div>
 
           <div className="text-[11px] text-slate-400">

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-export default function MicMeter({ isListening = true, sensitivity = 1 }) {
+export default function MicMeter({ isListening = true, sensitivity = 1, realLevel = null }) {
   const [level, setLevel] = useState(25);
 
   useEffect(() => {
     if (!isListening) {
       setLevel(0);
+      return;
+    }
+
+    if (realLevel !== null && realLevel !== undefined) {
+      setLevel(Math.min(100, Math.max(0, Math.round(realLevel * sensitivity))));
       return;
     }
 
@@ -17,7 +22,7 @@ export default function MicMeter({ isListening = true, sensitivity = 1 }) {
     }, 120);
 
     return () => clearInterval(timer);
-  }, [isListening, sensitivity]);
+  }, [isListening, sensitivity, realLevel]);
 
   const segments = 16;
   const activeSegments = Math.round((level / 100) * segments);

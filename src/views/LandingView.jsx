@@ -134,8 +134,8 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
 
               <div className="flex flex-wrap gap-3 pt-2">
                 <button
-                  onClick={() => setCurrentScreen('setup')}
-                  className="relative px-6 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-none"
+                  onClick={() => setCurrentScreen('live-interview')}
+                  className="relative px-6 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-none flex items-center gap-2"
                   style={{
                     background: '#5980a6',
                     fontFamily: 'var(--font-industry-heading)',
@@ -144,19 +144,31 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
                 >
                   <i className="blueprint-corner tl"></i><i className="blueprint-corner tr"></i>
                   <i className="blueprint-corner bl"></i><i className="blueprint-corner br"></i>
-                  <span>Start practising</span>
+                  <Mic className="w-4 h-4 text-white" />
+                  <span>Start Live Voice Interview</span>
                 </button>
 
                 <button
-                  onClick={() => setCurrentScreen('results')}
-                  className="px-5 py-3 text-sm font-bold text-slate-800 border bg-transparent"
+                  onClick={() => setCurrentScreen('setup')}
+                  className="px-5 py-3 text-sm font-bold text-slate-800 border bg-white flex items-center gap-1.5"
                   style={{
                     borderColor: 'color-mix(in srgb, #1d1f20 25%, transparent)',
                     fontFamily: 'var(--font-industry-heading)',
                     borderRadius: 0
                   }}
                 >
-                  See how it works
+                  <span>Specialty Setup</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <button
+                  onClick={() => setCurrentScreen('results')}
+                  className="px-4 py-3 text-sm font-medium text-slate-700 hover:text-slate-950"
+                  style={{
+                    fontFamily: 'var(--font-industry-heading)',
+                  }}
+                >
+                  View Sample Marks
                 </button>
               </div>
 
@@ -218,6 +230,14 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
                     <span>Domain: Clinical Prioritisation</span>
                     <span>Answer time: 03:00</span>
                   </div>
+                  <button
+                    onClick={() => setCurrentScreen('live-interview')}
+                    className="w-full mt-3 py-2 bg-[#5980a6] hover:bg-[#4d7194] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition"
+                    style={{ fontFamily: 'var(--font-industry-heading)' }}
+                  >
+                    <Mic className="w-3.5 h-3.5" />
+                    <span>Launch Station 1 Live Voice Demo →</span>
+                  </button>
                 </div>
               </figure>
             </div>
@@ -278,18 +298,18 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
 
                 <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 justify-center lg:justify-start">
                   <button
-                    onClick={() => setCurrentScreen('setup')}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm shadow-lg shadow-teal-900/40 flex items-center justify-center gap-2 transition"
+                    onClick={() => setCurrentScreen('live-interview')}
+                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm shadow-lg shadow-teal-900/40 flex items-center justify-center gap-2 transition ring-2 ring-teal-400/30"
                   >
-                    <span>Start Practising</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <Mic className="w-4 h-4 text-white" />
+                    <span>Start Live Voice Interview (Instant Demo)</span>
                   </button>
                   <button
-                    onClick={() => setCurrentScreen('results')}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 transition"
+                    onClick={() => setCurrentScreen('setup')}
+                    className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2 transition"
                   >
-                    <span>See How It Works</span>
-                    <Play className="w-3.5 h-3.5 text-teal-400" />
+                    <span>Specialty Setup</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -338,6 +358,13 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
                     <p className="mt-2 text-xs text-slate-300 italic bg-slate-950/60 p-2.5 rounded border border-slate-800/60">
                       “You have an unstable haematemesis on AMU and a silent chest in ED. How do you assess, manage, and prioritise this situation?”
                     </p>
+                    <button
+                      onClick={() => setCurrentScreen('live-interview')}
+                      className="w-full mt-3 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-md"
+                    >
+                      <Mic className="w-3.5 h-3.5" />
+                      <span>Launch Live Voice Simulation Now →</span>
+                    </button>
                   </div>
                 </div>
               </div>

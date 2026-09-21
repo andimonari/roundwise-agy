@@ -192,14 +192,24 @@ export default function DeviceCheckView({ setCurrentScreen }) {
         </div>
 
         {/* Footer Actions */}
-        <div className="flex justify-between items-center pt-2">
-          <button
-            type="button"
-            onClick={() => setCurrentScreen('cv-review')}
-            className="text-xs text-slate-500 hover:text-slate-800 font-medium"
-          >
-            Back to CV Facts
-          </button>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-2">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setCurrentScreen('cv-review')}
+              className="text-xs text-slate-500 hover:text-slate-800 font-medium"
+            >
+              Back to CV Facts
+            </button>
+            <span className="text-slate-300 hidden sm:inline">|</span>
+            <button
+              type="button"
+              onClick={() => setCurrentScreen('live-interview')}
+              className="text-xs text-teal-700 hover:text-teal-900 font-semibold underline"
+            >
+              Skip checks & enter live interview →
+            </button>
+          </div>
 
           <button
             onClick={() => setCurrentScreen('waiting-room')}
