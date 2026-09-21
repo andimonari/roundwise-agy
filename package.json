@@ -1,8 +1,8 @@
 {
-  "name": "panelwise-speciality",
+  "name": "roundwise",
   "private": true,
   "version": "1.0.0",
-  "description": "Panelwise Speciality — Independent UK Medical Specialty Interview Preparation Platform",
+  "description": "Roundwise — Independent UK Medical Specialty Interview Preparation Platform",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5173",

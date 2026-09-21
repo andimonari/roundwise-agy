@@ -358,7 +358,7 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
               The 3-Step Simulation Cycle
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-3" style={isIndustry ? { fontFamily: 'var(--font-industry-heading)' } : {}}>
-              How Panelwise Speciality prepares you for panel day
+              How Roundwise prepares you for panel day
             </h2>
             <p className="text-slate-600 text-sm sm:text-base mt-1">
               From your clinical portfolio to rigorous voice simulation and objective rubric-anchored feedback.
@@ -467,7 +467,7 @@ export default function LandingView({ setCurrentScreen, isMobileMode = false, de
               What is included
             </h2>
             <p className="text-slate-600 text-sm mt-1">
-              Unlike generic AI chat tools, Panelwise Speciality adheres to the rigorous structure of UK specialty recruitment.
+              Unlike generic AI chat tools, Roundwise adheres to the rigorous structure of UK specialty recruitment.
             </p>
           </div>
 
