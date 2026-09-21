@@ -1,4 +1,4 @@
-// Roundwise Frontend API Service
+// RoundWise Frontend API Service
 // Connects to Fastify backend (/v1) with seamless mock fallback if offline
 
 const API_BASE = 'http://localhost:3001/v1';
@@ -18,7 +18,7 @@ async function request(endpoint, options = {}) {
     }
     return await res.json();
   } catch (err) {
-    console.warn(`[Roundwise API Warning] ${endpoint} request failed, using local mock fallback.`, err.message);
+    console.warn(`[RoundWise API Warning] ${endpoint} request failed, using local mock fallback.`, err.message);
     return null;
   }
 }

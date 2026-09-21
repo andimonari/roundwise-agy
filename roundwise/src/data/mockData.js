@@ -1,4 +1,4 @@
-// Mock Data for Roundwise
+// Mock Data for RoundWise
 // Independent UK Medical Specialty Interview Preparation Platform
 
 export const SPECIALTIES = [
@@ -477,8 +477,8 @@ export const COMMERCIAL_PRICING = [
 
 export const FAQS = [
   {
-    q: 'Is Roundwise affiliated with the NHS or Royal Colleges?',
-    a: 'No. Roundwise is an independent educational technology service designed to help doctors practice interview technique. It is NOT affiliated with, endorsed by, approved by, or operated by NHS England, Health Education England (NHS England Workforce, Training & Education), any Royal Medical College, the General Medical Council (GMC), or any national recruitment office (such as Oriel, ANRO, or PSRO).'
+    q: 'Is RoundWise affiliated with the NHS or Royal Colleges?',
+    a: 'No. RoundWise is an independent educational technology service designed to help doctors practice interview technique. It is NOT affiliated with, endorsed by, approved by, or operated by NHS England, Health Education England (NHS England Workforce, Training & Education), any Royal Medical College, the General Medical Council (GMC), or any national recruitment office (such as Oriel, ANRO, or PSRO).'
   },
   {
     q: 'How does the CV fact extraction work and is it safe?',

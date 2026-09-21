@@ -111,7 +111,7 @@ app.register(async function (fastify) {
 
 try {
   await app.listen({ port, host: "0.0.0.0" });
-  console.log(`\n🚀 Roundwise Backend & Realtime Turn Engine live on http://localhost:${port}/${API_VERSION}/`);
+  console.log(`\n🚀 RoundWise Backend & Realtime Turn Engine live on http://localhost:${port}/${API_VERSION}/`);
   console.log(`🎙️  WebSocket Turn Engine available at ws://localhost:${port}/${API_VERSION}/session\n`);
 } catch (err) {
   app.log.error(err);

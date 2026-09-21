@@ -1,4 +1,4 @@
-// Roundwise Frontend WebSocket Voice Client
+// RoundWise Frontend WebSocket Voice Client
 // Connects to ws://localhost:3001/v1/session?token=sessionId
 // Handles real-time server snapshots, live transcript deltas, and streaming audio playback
 

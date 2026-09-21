@@ -138,7 +138,7 @@ export default function PricingView({ setCurrentScreen }) {
             <span>Platform Independence & No Selection Guarantee</span>
           </div>
           <p className="leading-relaxed">
-            Roundwise operates strictly as an independent practice simulation. Payment provides temporary access to AI voice simulation and structured rubric analysis. It does not constitute or imply registration with any royal college, medical body, or NHS recruitment office.
+            RoundWise operates strictly as an independent practice simulation. Payment provides temporary access to AI voice simulation and structured rubric analysis. It does not constitute or imply registration with any royal college, medical body, or NHS recruitment office.
           </p>
         </div>
       </div>

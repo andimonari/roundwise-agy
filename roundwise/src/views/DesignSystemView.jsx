@@ -27,7 +27,7 @@ export default function DesignSystemView() {
             <span className="text-xs text-slate-500 font-medium">Design Tokens, States & Microcopy</span>
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 mt-1">
-            Roundwise Design System Reference
+            RoundWise Design System Reference
           </h1>
           <p className="text-sm text-slate-600 mt-1">
             Clinical credibility guidelines, color tokens, accessible component states, and regulatory microcopy.
@@ -149,7 +149,7 @@ export default function DesignSystemView() {
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
               <strong className="text-slate-800 block">Independence & Non-Affiliation Disclaimer (Hero & Footer):</strong>
               <span className="text-slate-600 italic">
-                “Roundwise is an independent simulation service. Not affiliated with, endorsed by, or operated by NHS England, Health Education England, the GMC, or any Royal Medical College.”
+                “RoundWise is an independent simulation service. Not affiliated with, endorsed by, or operated by NHS England, Health Education England, the GMC, or any Royal Medical College.”
               </span>
             </div>
 

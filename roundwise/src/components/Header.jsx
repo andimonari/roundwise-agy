@@ -272,7 +272,7 @@ export default function Header({
               <div>
                 <div className="flex items-center gap-2">
                   <span className={`font-bold tracking-tight text-slate-900 ${isIndustry ? 'text-2xl' : 'text-lg sm:text-xl'}`} style={isIndustry ? { fontFamily: 'var(--font-industry-heading)' } : {}}>
-                    Round<span className={isIndustry ? 'text-[#5980a6]' : 'text-teal-600'}>wise</span>
+                    Round<span className={isIndustry ? 'text-[#5980a6]' : 'text-teal-600'}>Wise</span>
                   </span>
                   <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 border ${
                     isIndustry 

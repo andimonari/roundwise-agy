@@ -15,7 +15,7 @@ export default function Footer({ setCurrentScreen }) {
                   Independent Service Disclaimer & Non-Affiliation Notice
                 </h4>
                 <p className="text-slate-400 text-xs mt-1 leading-relaxed max-w-4xl">
-                  Roundwise is an independent simulation technology and preparation platform operated by Roundwise Technologies Ltd. 
+                  RoundWise is an independent simulation technology and preparation platform operated by RoundWise Technologies Ltd. 
                   This service is <strong>NOT affiliated with, endorsed by, approved by, or operated by the National Health Service (NHS)</strong>, 
                   NHS England, NHS Education England (Workforce, Training and Education), the General Medical Council (GMC), any Royal Medical College 
                   (including RCP, RCS, RCGP, RCoA, RCR, RCPath, RCPCH), or any official national specialty recruitment office (including Oriel, PSRO, ANRO, or GPNRO).
@@ -35,7 +35,7 @@ export default function Footer({ setCurrentScreen }) {
               <div className="w-7 h-7 rounded-lg bg-teal-700 flex items-center justify-center text-white font-bold text-sm">
                 RW
               </div>
-              <span className="text-white font-bold text-base tracking-tight">Roundwise</span>
+              <span className="text-white font-bold text-base tracking-tight">RoundWise</span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
               Realistic, timed UK medical specialty interview simulations tailored to your verified CV facts and scored against administrator-controlled rubrics.
@@ -94,7 +94,7 @@ export default function Footer({ setCurrentScreen }) {
 
         <div className="border-t border-slate-800 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <div>
-            © 2026 Roundwise Technologies Ltd. All rights reserved. Registered in England & Wales.
+            © 2026 RoundWise Technologies Ltd. All rights reserved. Registered in England & Wales.
           </div>
           <div className="flex gap-4">
             <span className="text-slate-400">Strictly no endorsement implied.</span>

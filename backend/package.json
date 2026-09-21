@@ -2,7 +2,7 @@
   "name": "roundwise-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "Roundwise Backend API and Stateful Voice Turn Engine",
+  "description": "RoundWise Backend API and Stateful Voice Turn Engine",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
