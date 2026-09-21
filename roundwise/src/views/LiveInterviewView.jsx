@@ -25,6 +25,8 @@ import {
 import AudioWave from '../components/AudioWave';
 import MicMeter from '../components/MicMeter';
 import { MOCK_INTERVIEW_QUESTIONS, SPECIALTIES } from '../data/mockData';
+import { VoiceSocketClient } from '../services/voiceSocket';
+import { api } from '../services/api';
 
 export default function LiveInterviewView({ setCurrentScreen }) {
   // Active Question & Navigation
@@ -40,9 +42,13 @@ export default function LiveInterviewView({ setCurrentScreen }) {
   // Candidate Controls & UI Flags
   const [isMuted, setIsMuted] = useState(false);
   const [hideQuestionText, setHideQuestionText] = useState(false);
-  const [repeatsRemaining, setRepeatsRemaining] = useState(1);
+  const [repeatsRemaining, setRepeatsRemaining] = useState(2);
   const [showEndModal, setShowEndModal] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
+
+  // Backend Realtime Connection
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [socketClient, setSocketClient] = useState(null);
 
   // INTERACTION STATES (The 11 Required States)
   // 'panel-speaking', 'candidate-speaking', 'ai-processing', 'silence-detected', 
@@ -54,6 +60,46 @@ export default function LiveInterviewView({ setCurrentScreen }) {
   const [liveCandidateTranscript, setLiveCandidateTranscript] = useState(
     "I would approach this acute presentation systematically using an ABCDE assessment while exercising rapid triage and delegation..."
   );
+
+  // Connect to live turn engine over WebSocket
+  useEffect(() => {
+    let client = null;
+    try {
+      client = new VoiceSocketClient(`session-${Date.now()}`, {
+        onOpen: () => setSocketConnected(true),
+        onClose: () => setSocketConnected(false),
+        onSnapshot: (snapshot) => {
+          if (snapshot.state === 'panel') setInterviewState('panel-speaking');
+          else if (snapshot.state === 'candidate') setInterviewState('candidate-speaking');
+          else if (snapshot.state === 'processing') setInterviewState('ai-processing');
+          else if (snapshot.state === 'silence') setInterviewState('silence-detected');
+          else if (snapshot.state === 'repeat') setInterviewState('candidate-repeated');
+          else if (snapshot.state === 'warn') setInterviewState('time-warning');
+          else if (snapshot.state === 'expired') setInterviewState('time-expired');
+          else if (snapshot.state === 'network') setInterviewState('network-interrupted');
+          else if (snapshot.state === 'mic') setInterviewState('mic-failure');
+          else if (snapshot.state === 'paused') setInterviewState('paused-technical');
+          else if (snapshot.state === 'completed') setInterviewState('completed');
+
+          if (snapshot.repeatsRemaining !== undefined) setRepeatsRemaining(snapshot.repeatsRemaining);
+          if (snapshot.transcript) setLiveCandidateTranscript(snapshot.transcript);
+        },
+        onTranscriptInterim: (text) => {
+          setLiveCandidateTranscript(prev => prev + ' ' + text);
+        },
+        onTranscriptFinal: (frame) => {
+          setLiveCandidateTranscript(prev => prev + ' ' + frame.text);
+        },
+      });
+      setSocketClient(client);
+    } catch (err) {
+      console.warn('Live WebSocket fallback:', err);
+    }
+
+    return () => {
+      if (client) client.close();
+    };
+  }, []);
 
   // Timer countdown tick
   useEffect(() => {
@@ -117,6 +163,16 @@ export default function LiveInterviewView({ setCurrentScreen }) {
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-semibold text-slate-300">Live Voice Panel Session</span>
           </div>
+          {socketConnected ? (
+            <span className="bg-emerald-950/80 text-emerald-400 font-mono text-[10px] px-2 py-0.5 rounded border border-emerald-700/60 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              WebSocket Engine Live (:3001)
+            </span>
+          ) : (
+            <span className="bg-slate-800 text-slate-400 font-mono text-[10px] px-2 py-0.5 rounded border border-slate-700">
+              Offline Simulation
+            </span>
+          )}
           <span className="text-slate-600">|</span>
           <span className="text-slate-400 font-mono">Pathway: {specialty.code}</span>
           <span className="hidden sm:inline text-slate-400 font-mono">Station {currentQuestion.number} of {MOCK_INTERVIEW_QUESTIONS.length}</span>

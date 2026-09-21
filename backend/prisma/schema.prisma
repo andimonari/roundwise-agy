@@ -1,0 +1,153 @@
+// Roundwise Data Model
+// PostgreSQL schema adhering to docs/handoff/design/Panelwise Architecture.dc.html §5
+// 8 Core Tables: User, CvDocument, CvFact, QuestionBank, Session, SessionEvent, Score, Entitlement
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String         @id @default(uuid())
+  email              String         @unique
+  name               String
+  role               String         @default("candidate")
+  consentGDPR        Boolean        @default(false)
+  consentAudio       Boolean        @default(false)
+  consentModel       Boolean        @default(false)
+  consentCaldicott   Boolean        @default(false)
+  consentVersion     String         @default("1.0")
+  audioRetentionDays Int            @default(90)
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  cvDocuments        CvDocument[]
+  sessions           Session[]
+  entitlements       Entitlement[]
+
+  @@map("users")
+}
+
+model CvDocument {
+  id              String    @id @default(uuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filename        String
+  storageKey      String
+  mimeType        String
+  parseStatus     String    @default("pending") // pending, parsed, failed
+  redactionState  String    @default("clean")   // clean, contains_warnings
+  retentionExpiry DateTime?
+  createdAt       DateTime  @default(now())
+
+  facts           CvFact[]
+
+  @@map("cv_documents")
+}
+
+model CvFact {
+  id          String     @id @default(uuid())
+  documentId  String
+  document    CvDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  category    String     // qualifications, clinical_roles, audits_qip, teaching, research_pubs, leadership, practical_procedures, clinical_governance, critical_incidents, career_reflection
+  claimText   String
+  sourceSpan  String?
+  confidence  Float      @default(1.0)
+  status      String     @default("proposed") // proposed, confirmed, removed
+  editedText  String?
+  createdAt   DateTime   @default(now())
+
+  @@map("cv_facts")
+}
+
+model QuestionBank {
+  id             String   @id @default(uuid())
+  specialtyCode  String   // imt, cst, gpst, accs, paeds, rad
+  pathway        String
+  level          String   // ST1 / CT1, ST3
+  stationType    String   // clinical, ethical, portfolio, management
+  title          String
+  questionText   String
+  promptTemplate String
+  rubricRef      String
+  followUpProbes String?  // JSON array of probe criteria
+  version        Int      @default(1)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  @@map("question_banks")
+}
+
+model Session {
+  id                   String         @id @default(uuid())
+  userId               String
+  user                 User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  specialtyCode        String
+  pathway              String
+  stationType          String
+  currentState         String         @default("panel") // 12 states
+  speakingSeat         Int?           // 0, 1, 2
+  currentQuestionIndex Int            @default(0)
+  questionCount        Int            @default(7)
+  answerSeconds        Int            @default(180)
+  warningSeconds       Int            @default(30)
+  repeatsRemaining     Int            @default(2)
+  answerDeadline       DateTime?
+  interviewDeadline    DateTime
+  startedAt            DateTime       @default(now())
+  endedAt              DateTime?
+
+  events               SessionEvent[]
+  scores               Score[]
+
+  @@map("sessions")
+}
+
+// Append-only immutable event log: scoring re-runs from it; never updated or deleted
+model SessionEvent {
+  id        String   @id @default(uuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sequence  Int
+  eventType String   // state_transition, transcript_delta, audio_key, timer_tick, fault, user_action
+  payload   String   // JSON event payload
+  timestamp DateTime @default(now())
+
+  @@index([sessionId, sequence])
+  @@map("session_events")
+}
+
+model Score {
+  id                String   @id @default(uuid())
+  sessionId         String
+  session           Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionId        String?
+  domainId          String
+  domainName        String
+  score             Int
+  maxScore          Int
+  weight            Float    @default(1.0)
+  rationale         String
+  evidenceCitations String   // JSON array: [{ startMs, endMs, text }]
+  rubricVersion     Int      @default(1)
+  createdAt         DateTime @default(now())
+
+  @@map("scores")
+}
+
+model Entitlement {
+  id               String    @id @default(uuid())
+  userId           String
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type             String    // single_mock, unlimited_pass
+  stripeCheckoutId String?
+  creditsRemaining Int       @default(1)
+  expiresAt        DateTime?
+  createdAt        DateTime  @default(now())
+
+  @@map("entitlements")
+}
