@@ -76,8 +76,8 @@ Defined in [`backend/prisma/schema.prisma`](backend/prisma/schema.prisma):
 ### 1. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/andimonari/roundwise.git
-cd roundwise
+git clone https://github.com/andimonari/roundwise-agy.git
+cd roundwise-agy
 
 # Install frontend dependencies
 npm install
